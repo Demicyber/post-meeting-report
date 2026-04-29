@@ -51,16 +51,13 @@
 
 ## 3. What Changed — EP Update
 
-> *💡 AI agent auto-extracts incremental changes from Meeting Notes. Apply EP Update Rules: incremental updates only, timestamp annotations, and gap detection.*
+> *💡 AI agent auto-extracts incremental changes from Meeting Notes. Only include dimensions where something actually changed — skip dimensions with no updates. Apply EP Update Rules: incremental updates only, timestamp annotations, and gap detection.*
+>
+> *Common dimensions: Stakeholder sentiment/relationships, MEDDPICC, Competitive landscape, Risks, Stage/deal value/timeline, Technical/architecture, Procurement process. Add any other dimension as needed.*
 
 | Dimension | What Changed |
 |-----------|-------------|
-| Stakeholder sentiment / relationships | |
-| MEDDPICC new information | |
-| Competitive landscape | |
-| New risks | |
-| Stage / deal value / timeline | |
-| Other (technical, procurement, etc.) | |
+| `{only list dimensions with actual changes}` | |
 
 ### Agent Recommendation
 
