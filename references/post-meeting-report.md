@@ -60,6 +60,7 @@
 | Competitive landscape | |
 | New risks | |
 | Stage / deal value / timeline | |
+| Other (technical, procurement, etc.) | |
 
 ### Agent Recommendation
 
@@ -82,9 +83,9 @@
 
 ---
 
-## 5. Customer Recap Email Draft
+## 5. Customer Recap Email (Handoff)
 
-> *💡 Email drafting is handled by the **Writer Skill**. After completing the PMR, prompt the user: "Would you like me to draft a customer recap email based on this report?" If yes, hand off to the Writer Skill with the following context: key discussion points, agreed action items, and proposed next steps from this PMR.*
+> *💡 This is not part of the PMR itself — it’s a handoff to the **Writer Skill**. After completing the PMR, prompt the user: “Would you like me to draft a customer recap email?” If yes, pass key discussion points, agreed action items, and proposed next steps to the Writer Skill.*
 
 ---
 

@@ -5,7 +5,7 @@ description: >
   Captures outcomes, meeting notes, EP updates, and action items.
   Closes the loop by auto-syncing findings back to the Engagement Plan.
   Customer recap email is handed off to the Writer Skill.
-  Works with Call Plan, Engagement Plan, Executive Briefing, CXO Personas, and Writer skills.
+  Works with Call Plan, Engagement Plan, Executive Briefing, Opportunity Progression, Contact Profile, CXO Personas, and Writer skills.
   Triggers on: "post-meeting report", "meeting notes", "post-meeting", "follow-up",
   "meeting debrief", "visit report", "拜访复盘", "会议纪要", "会后总结".
 ---
@@ -34,7 +34,19 @@ Executive Briefing → Visit → PMR → Update EP → Next interaction → ...
 
 ---
 
-## 3. Core Rules
+## 3. Input
+
+The agent accepts any of the following as input for generating a PMR:
+- **Verbal debrief** — sales rep describes what happened in conversation
+- **Written notes** — bullet points, free-form text, or structured notes
+- **Meeting transcript** — auto-generated or manual transcript
+- **Audio recording** — if transcription is available
+
+The agent structures whatever input it receives into the PMR template. If input is sparse, generate best-effort and ask targeted follow-up questions (max 3).
+
+---
+
+## 4. Core Rules
 
 ### Rule 1: Close the Loop
 After generating a PMR:
@@ -60,9 +72,9 @@ After generating, always ask sales to review and revise.
 
 ---
 
-## 4. PMR Template
+## 5. PMR Template
 
-Read [references/post-meeting-report.md](references/post-meeting-report.md) before generating. The template has 5 sections:
+Read [references/post-meeting-report.md](references/post-meeting-report.md) before generating. The template has 4 core sections + 1 handoff:
 
 1. **Outcome Assessment** — Auto-pulled objectives/criteria from related document + result (✅ Achieved / ⚠️ Partial / ❌ Not achieved) + stage progression result
 2. **Meeting Notes** — Customer sentiment per attendee + key findings with source and implication
@@ -72,17 +84,23 @@ Read [references/post-meeting-report.md](references/post-meeting-report.md) befo
 
 ---
 
-## 5. EP Update Rules
+## 6. EP Update Rules
 
-When updating the Engagement Plan from a PMR:
+When updating the Engagement Plan from a PMR, **agent directly edits the EP file** and then asks sales to review:
 
-1. **Incremental updates only** — modify only changed fields; preserve all existing content
-2. **Timestamp annotations** — add `[Updated: YYYY-MM-DD]` next to every changed field
-3. **Gap detection** — if a topic was discussed in the meeting but no outcome was captured, flag: "⚠️ [Topic] was discussed but no outcome was captured — please confirm what changed."
+1. **Key Stakeholders** — update Current Stance for any attendee whose sentiment changed
+2. **Engagement Roadmap** — mark completed milestone as **Done**, promote next Planned row to **Next ↓**, expand new Next Milestone Detail
+3. **Execution Log** — add a new entry at the top (most recent first) with Planned vs Actual, People Updates, Key Learnings, Plan Adjustment
+4. **Estimate & Uncertainty** — re-forecast if timeline, call count, or risk profile changed
+5. **Incremental updates only** — modify only changed fields; preserve all existing content
+6. **Timestamp annotations** — add `[Updated: YYYY-MM-DD]` next to every changed field
+7. **Gap detection** — if a topic was discussed but no outcome was captured, flag: "⚠️ [Topic] was discussed but no outcome captured — please confirm what changed."
+
+After updating, always ask sales to review the EP changes.
 
 ---
 
-## 6. Agent Recommendation
+## 7. Agent Recommendation
 
 After each PMR, provide a brief strategic recommendation (3-5 sentences):
 - Should the opportunity advance to the next stage? Why or why not?
@@ -91,7 +109,7 @@ After each PMR, provide a brief strategic recommendation (3-5 sentences):
 
 ---
 
-## 7. Customer Recap Email Handoff
+## 8. Customer Recap Email Handoff
 
 After completing the PMR, ask the user: "Would you like me to draft a customer recap email based on this report?"
 
@@ -104,21 +122,21 @@ The Writer Skill handles all email drafting with appropriate customer-facing ton
 
 ---
 
-## 8. Relationship with Other Skills
+## 9. Relationship with Other Skills
 
-| Skill | Relationship |
-|--------|-------------|
-| **Call Plan** | PMR auto-pulls Call Plan's Success Criteria into Outcome Assessment. |
-| **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. |
-| **Engagement Plan** | PMR results auto-roll back into EP Execution Log and update people stance + call status. |
-| **Opportunity Progression** | PMR updates Opp Progression with new MEDDPICC info, competitive landscape changes, stage/timeline shifts. |
-| **Contact Profile** | PMR updates Contact Profile with stance changes, trust level shifts, and new interaction history for each attendee. |
-| **CXO Personas** | Sentiment assessment for executive attendees can reference persona expectations. |
-| **Writer Skill** | Customer recap email drafting is delegated to the Writer Skill after PMR is complete. |
+| Skill | Relationship | How to Access |
+|--------|-------------|---------------|
+| **Call Plan** | PMR auto-pulls Call Plan's Success Criteria into Outcome Assessment. | Load the Call Plan file for this meeting (naming: `CP_{Customer}_{Date}.md`). |
+| **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load the EB file for this meeting if it exists. |
+| **Engagement Plan** | PMR results auto-update EP: Key Stakeholders stance, Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.md` from workspace. Agent edits directly. |
+| **Opportunity Progression** | PMR updates Opp Progression with new MEDDPICC info, competitive landscape, stage/timeline shifts. | Load opp record if it exists; otherwise flag updates for sales to apply manually. |
+| **Contact Profile** | PMR updates Contact Profile with stance changes, trust level shifts, new interaction history. | Load contact profile if it exists; otherwise flag updates for sales. |
+| **CXO Personas** | Sentiment assessment for executive attendees can reference persona expectations. | Load persona file matching attendee's title from `cxo-personas/personas/`. |
+| **Writer Skill** | Customer recap email drafting is delegated to the Writer Skill after PMR is complete. | Hand off context to Writer Skill when user confirms. |
 
 ---
 
-## 9. Document Quality Standards
+## 10. Document Quality Standards
 
 Before delivering, validate:
 - Outcome assessment auto-pulled from related document with clear results
@@ -129,7 +147,7 @@ Before delivering, validate:
 
 ---
 
-## 10. Information Insufficient Fallback
+## 11. Information Insufficient Fallback
 
 1. **Never block.** Generate best-effort version with available information.
 2. **Never hallucinate.** Do not fill fields with plausible-sounding but unverified content. Mark as `[待确认]` instead.
@@ -138,7 +156,7 @@ Before delivering, validate:
 
 ---
 
-## 11. Language & Tone
+## 12. Language & Tone
 
 - **Professional but approachable**
 - **Action-oriented** — active voice, lead with verbs
@@ -150,9 +168,19 @@ Before delivering, validate:
 
 ---
 
-## 12. Document Output
+## 13. Document Output
 
-All documents delivered as **Word (.docx) files**. On first use, ask the user where they want documents saved.
+All documents delivered as **Markdown (.md)** by default. Users can request other formats (Word .docx, PDF). On first use, ask the user where they want documents saved.
+
+### File Naming Convention
+
+`PMR_{Customer}_{Date}.md`
+
+Example: `PMR_MinghuaHeavy_2026-05-15.md`
+
+### Storage
+
+Save PMR files in the workspace or a location specified by the user.
 
 ---
 
