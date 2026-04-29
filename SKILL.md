@@ -114,11 +114,11 @@ After each PMR, provide a brief strategic recommendation (3-5 sentences):
 After completing the PMR, ask the user: "Would you like me to draft a customer recap email based on this report?"
 
 If yes, hand off to the **Writer Skill** with the following context:
-- Key discussion points from Section 2
+- Key discussion points from Section 2 (Key Findings)
 - Agreed action items from Section 4
 - Proposed next steps
 
-The Writer Skill handles all email drafting with appropriate customer-facing tone and content filtering.
+> **⚠️ Writer Skill is not yet available.** Until the Writer Skill repo is created, the PMR agent should draft a simple recap email directly using professional, customer-facing tone. Keep it factual — no internal strategy or competitive intel. When Writer Skill is ready, update this section with the skill path and handoff mechanism.
 
 ---
 
