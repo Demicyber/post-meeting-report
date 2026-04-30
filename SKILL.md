@@ -70,6 +70,9 @@ Escalation sequence for missing PMR:
 ### Rule 4: Always Review with Sales
 After generating, always ask sales to review and revise.
 
+### Rule 5: Never Hallucinate
+Do not fabricate meeting outcomes, stakeholder sentiments, or action items. If sales input is unclear or incomplete, mark as `[待确认]` and ask for clarification. PMR must reflect what actually happened, not what the agent thinks should have happened.
+
 ---
 
 ## 5. PMR Template
