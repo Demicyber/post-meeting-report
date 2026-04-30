@@ -5,7 +5,7 @@ description: >
   Captures outcomes, meeting notes, EP updates, and action items.
   Closes the loop by auto-syncing findings back to the Engagement Plan.
   Customer recap email is handed off to the Writer Skill.
-  Works with Call Plan, Engagement Plan, Executive Briefing, Opportunity Progression, Contact Profile, CXO Personas, and Writer skills.
+  Works with Call Plan, Engagement Plan, Executive Briefing, Opportunity Progression, Contact Profiling, CXO Personas, and Writer skills.
   Triggers on: "post-meeting report", "meeting notes", "post-meeting", "follow-up",
   "meeting debrief", "visit report", "拜访复盘", "会议纪要", "会后总结".
 ---
