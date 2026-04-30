@@ -88,7 +88,7 @@ Read [references/post-meeting-report.md](references/post-meeting-report.md) befo
 
 When updating the Engagement Plan from a PMR, **agent directly edits the EP file** and then asks sales to review:
 
-1. **Key Stakeholders** — update Current Stance for any attendee whose sentiment changed
+1. **Key Stakeholders** — update Current Stance for any attendee whose sentiment changed; update **Profiling** if new behavioral observations emerged (e.g., communication style, decision patterns, reactions)
 2. **Engagement Roadmap** — mark completed milestone as **Done**, promote next Planned row to **Next ↓**, expand new Next Milestone Detail
 3. **Execution Log** — add a new entry at the top (most recent first) with Planned vs Actual, People Updates, Key Learnings, Plan Adjustment
 4. **Estimate & Uncertainty** — re-forecast if timeline, call count, or risk profile changed
@@ -128,9 +128,9 @@ If yes, hand off to the **Writer Skill** with the following context:
 |--------|-------------|---------------|
 | **Call Plan** | PMR auto-pulls Call Plan's Success Criteria into Outcome Assessment. | Load the Call Plan file for this meeting (naming: `CP_{Customer}_{Date}.md`). |
 | **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load the EB file for this meeting if it exists. |
-| **Engagement Plan** | PMR results auto-update EP: Key Stakeholders stance, Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.md` from workspace. Agent edits directly. |
+| **Engagement Plan** | PMR results auto-update EP: Key Stakeholders stance + Profiling (if new behavioral observations), Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.md` from workspace. Agent edits directly. |
 | **Opportunity Progression** | PMR updates Opp Progression with new MEDDPICC info, competitive landscape, stage/timeline shifts. | Load opp record if it exists; otherwise flag updates for sales to apply manually. |
-| **Contact Profile** | PMR updates Contact Profile with stance changes, trust level shifts, new interaction history. | Load contact profile if it exists; otherwise flag updates for sales. |
+| **Contact Profiling** | If PMR contains new observations about a person (sentiment changes, communication style insights, decision pattern observations), roll updates back to their Contact Profiling file. No people-related updates = no rollback. | Load contact profiling file if it exists; otherwise flag updates for sales. |
 | **CXO Personas** | Sentiment assessment for executive attendees can reference persona expectations. | Load persona file matching attendee's title from `cxo-personas/personas/`. |
 | **Writer Skill** | Customer recap email drafting is delegated to the Writer Skill after PMR is complete. | Hand off context to Writer Skill when user confirms. |
 
@@ -184,4 +184,4 @@ Save PMR files in the workspace or a location specified by the user.
 
 ---
 
-*Post-Meeting Report Skill | Version: 1.0*
+*Post-Meeting Report Skill | Version: 1.1*
