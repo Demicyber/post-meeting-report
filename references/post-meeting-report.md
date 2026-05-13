@@ -164,13 +164,12 @@ Stage Progression 评估：
 
 常见回写维度：
 - Stakeholder stance/relationships → EP Key Stakeholders
-- MEDDPICC gaps filled → EP MEDDPICC section
-- Competitive intelligence → EP Competitive Analysis
-- Risk identified/resolved → EP Stakeholder Risk & Leverage / Milestone Risk
-- Timeline/urgency change → EP Roadmap
-- Decision process clarification → EP Decision Process
+- Competitive intelligence → EP Opp Snapshot: Win Strategy
+- Risk identified/resolved → EP Estimate & Contingency (Stakeholder Risk & Leverage / Milestone Risk)
+- Timeline/urgency change → EP Engagement Roadmap + Estimate & Contingency
+- Decision process clarification → EP Key Stakeholders (Role in This Deal) + Engagement Roadmap (审批节点)
 - New stakeholder discovered → EP Key Stakeholders (新增)
-- Stage progression → EP Stage + Execution Log
+- Stage progression → EP Opp Snapshot: Current Stage + Execution Log
 
 ⚡ 闭环检查：
 - PMR 完成后，当前 milestone 移入 EP Execution Log
