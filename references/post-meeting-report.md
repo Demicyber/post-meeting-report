@@ -187,7 +187,7 @@ Stage Progression 评估：
 | # | EP Section to Update | Change Type | What to Write |
 |---|---------------------|-------------|---------------|
 | 1 | `{e.g., Key Stakeholders}` | `{Update}` | `{e.g., "王总: Neutral → Supporter. Evidence: 主动提出帮安排 CTO 会议"}` |
-| 2 | `{e.g., Competitive Analysis}` | `{新增}` | `{e.g., "客户透露在评估阿里云，但对其 AI 能力不满意"}` |
+| 2 | `{e.g., Win Strategy}` | `{新增}` | `{e.g., "客户透露在评估阿里云，但对其 AI 能力不满意"}` |
 | 3 | `{e.g., Roadmap}` | `{Update}` | `{e.g., "客户 H2 才有预算 — 原计划 Q2 推进需延后"}` |
 
 **Execution Log Update:** `{当前 milestone 状态 → Done/Partial/Repeat，原因}`
