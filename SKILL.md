@@ -81,7 +81,7 @@ Read [references/post-meeting-report.md](references/post-meeting-report.md) befo
 
 1. **Outcome Assessment** — Auto-pulled objectives/criteria from related document + result (✅ Achieved / ⚠️ Partial / ❌ Not achieved) + stage progression result
 2. **Meeting Notes** — Customer sentiment per attendee + key findings with source and implication
-3. **What Changed — EP Update** — Incremental changes by dimension (stakeholders, MEDDPICC, competitive, risks, stage/timeline) + Agent Recommendation
+3. **What Changed — EP Update** — Incremental changes by dimension (stakeholders, Win Strategy, competitive, risks, stage/timeline) + Agent Recommendation
 4. **Action Items** — Sorted by priority (High first), with owner, ETA, status
 5. **Customer Recap Email Draft** — Handoff to Writer Skill (provide key discussion points, action items, next steps as context)
 
@@ -132,7 +132,7 @@ If yes, hand off to the **Writer Skill** with the following context:
 | **Call Plan** | PMR auto-pulls Call Plan's Success Criteria into Outcome Assessment. | Load the Call Plan file for this meeting (naming: `CP_{Customer}_{Date}.md`). |
 | **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load the EB file for this meeting if it exists. |
 | **Engagement Plan** | PMR results auto-update EP: Key Stakeholders stance + Profiling (if new behavioral observations), Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.md` from workspace. Agent edits directly. |
-| **Opportunity Progression** | PMR updates Opp Progression with new MEDDPICC info, competitive landscape, stage/timeline shifts. | Load opp record if it exists; otherwise flag updates for sales to apply manually. |
+| **Opportunity Progression** | PMR updates Opp Progression with new info gaps filled, competitive landscape, stage/timeline shifts. | Load opp record if it exists; otherwise flag updates for sales to apply manually. |
 | **Contact Profiling** | If PMR contains new observations about a person (sentiment changes, communication style insights, decision pattern observations), roll updates back to their Contact Profiling file. No people-related updates = no rollback. | Load contact profiling file if it exists; otherwise flag updates for sales. |
 | **CXO Personas** | Sentiment assessment for executive attendees can reference persona expectations. | Load persona file matching attendee's title from `cxo-personas/personas/`. |
 | **Writer Skill** | Customer recap email drafting is delegated to the Writer Skill after PMR is complete. | Hand off context to Writer Skill when user confirms. |
@@ -167,7 +167,7 @@ Before delivering, validate:
 
 ### Bilingual Support
 - Chinese input → Chinese output; English input → English output; mixed → match primary language
-- AWS product names and MEDDPICC always in English
+- AWS product names always in English
 
 ---
 
@@ -187,4 +187,4 @@ Save PMR files in the workspace or a location specified by the user.
 
 ---
 
-*Post-Meeting Report Skill | Version: 1.1*
+*Post-Meeting Report Skill | Version: 2.0*
