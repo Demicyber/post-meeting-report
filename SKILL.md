@@ -173,13 +173,31 @@ Before delivering, validate:
 
 ## 13. Document Output
 
-All documents delivered as **Markdown (.md)** by default. Users can request other formats (Word .docx, PDF). On first use, ask the user where they want documents saved.
+### Default: HTML (Material Design 3)
+
+Every Post-Meeting Report is rendered as a styled HTML file using the Jinja2 template at `templates/post-meeting-report.html.j2`. The agent:
+1. Generates structured data (JSON) from the PMR content
+2. Fills the template via `templates/render_pmr.py`
+3. Outputs the rendered HTML file
+
+Visual style: Google Material Design 3 (Google Sans font, MD3 color tokens, 28px rounded cards, Material Symbols icons, responsive grid, pill badges for result/stance/priority/status).
+
+### On-Demand: PDF / Word
+
+- **PDF** — Generated from HTML via headless Chrome or weasyprint (preserves full styling)
+- **Word (.docx)** — Generated via python-docx (clean business format, not pixel-identical to HTML)
+
+Sales requests these explicitly; agent does not auto-generate.
 
 ### File Naming Convention
 
-`PMR_{Customer}_{Date}.md`
+| Format | Naming |
+|--------|--------|
+| HTML | `PMR_{Customer}_{Date}.html` |
+| PDF | `PMR_{Customer}_{Date}.pdf` |
+| Word | `PMR_{Customer}_{Date}.docx` |
 
-Example: `PMR_MinghuaHeavy_2026-05-15.md`
+Example: `PMR_MinghuaHeavy_2026-03-20.html`
 
 ### Storage
 
