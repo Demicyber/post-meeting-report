@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-Meeting Report – {{ customer_name }} | {{ meeting_title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <style>
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-tertiary: #7D5260;
+            --md-sys-color-tertiary-container: #FFD8E4;
+            --md-sys-color-surface: #FFFBFE;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-outline-variant: #CAC4D0;
+            --md-sys-color-surface-container-lowest: #FFFFFF;
+            --md-sys-color-surface-container-low: #F7F2FA;
+            --md-sys-color-surface-container: #F3EDF7;
+            --md-sys-color-surface-container-high: #ECE6F0;
+            --md-sys-color-surface-container-highest: #E6E0E9;
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-error-container: #F9DEDC;
+            --md-sys-color-success: #386A20;
+            --md-sys-color-success-container: #C8E6C9;
+            --md-sys-color-warning: #F57F17;
+            --md-sys-color-warning-container: #FFF9C4;
+        }
+
+        * { font-family: 'Google Sans', 'Roboto', sans-serif; }
+
+        body {
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .md-card {
+            background: var(--md-sys-color-surface-container-lowest);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 28px;
+            padding: 24px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .md-card:hover {
+            box-shadow: 0 2px 6px 2px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12);
+        }
+
+        .md-card-elevated {
+            background: var(--md-sys-color-surface-container-low);
+            border: none;
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 1px 3px 1px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .md-card-elevated:hover {
+            box-shadow: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        .md-card-filled {
+            background: var(--md-sys-color-surface-container-highest);
+            border: none;
+            border-radius: 28px;
+            padding: 24px;
+        }
+
+        .pill-badge {
+            border-radius: 100px;
+            padding: 4px 16px;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .pill-sponsor { background: #C8E6C9; color: #1B5E20; }
+        .pill-supporter { background: #C8E6C9; color: #1B5E20; }
+        .pill-neutral { background: #FFF9C4; color: #F57F17; }
+        .pill-non-supporter { background: #FFCDD2; color: #B71C1C; }
+        .pill-adversary { background: #FFCDD2; color: #B71C1C; }
+        .pill-champion { background: #C8E6C9; color: #1B5E20; }
+        .pill-achieved { background: #C8E6C9; color: #1B5E20; }
+        .pill-partial { background: #FFF9C4; color: #F57F17; }
+        .pill-not-achieved { background: #FFCDD2; color: #B71C1C; }
+        .pill-not_achieved { background: #FFCDD2; color: #B71C1C; }
+        .pill-answered { background: #C8E6C9; color: #1B5E20; }
+        .pill-unanswered { background: #FFCDD2; color: #B71C1C; }
+        .pill-update { background: #E8DEF8; color: #21005D; }
+        .pill-add { background: #C8E6C9; color: #1B5E20; }
+        .pill-remove { background: #FFCDD2; color: #B71C1C; }
+        .pill-high { background: #FFCDD2; color: #B71C1C; }
+        .pill-medium { background: #FFF9C4; color: #F57F17; }
+        .pill-low { background: var(--md-sys-color-surface-container-highest); color: var(--md-sys-color-on-surface-variant); }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            letter-spacing: 0;
+            margin-bottom: 16px;
+        }
+
+        .label-large {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .title-medium {
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.15px;
+        }
+
+        .body-medium {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.25px;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .headline-small {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        .display-small {
+            font-size: 36px;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        @media print {
+            body { background: white; }
+            .md-card, .md-card-elevated, .md-card-filled { box-shadow: none; border: 1px solid #e0e0e0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-10">
+    <div class="max-w-6xl mx-auto space-y-6">
+
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-2">
+            <div>
+                <p class="label-large uppercase tracking-wider" style="color: var(--md-sys-color-primary);">Post-Meeting Report</p>
+                <h1 class="display-small mt-1" style="color: var(--md-sys-color-on-surface);">{{ customer_name }}</h1>
+                <p class="body-medium mt-1">{{ meeting_title }}</p>
+                <p class="body-medium mt-1">Related: {{ related_document }}</p>
+            </div>
+            <div class="text-right">
+                <div class="flex items-center gap-2" style="background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); border-radius: 16px; padding: 16px 24px; font-weight: 500; box-shadow: 0 4px 8px 3px rgba(0,0,0,0.10);">
+                    <span class="material-symbols-outlined">event</span>
+                    <span class="text-lg font-medium">{{ meeting_date }}</span>
+                </div>
+                <p class="body-medium mt-2">Recorded by: {{ recorded_by }}</p>
+            </div>
+        </header>
+
+        <!-- Section 1: Outcome Assessment -->
+        <section class="md-card-elevated">
+            <h2 class="section-title flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">assessment</span>
+                Outcome Assessment
+            </h2>
+            <div class="overflow-x-auto mt-4">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <th class="label-large py-3 px-2">#</th>
+                            <th class="label-large py-3 px-2">Target Meeting Outcome</th>
+                            <th class="label-large py-3 px-2">Result</th>
+                            <th class="label-large py-3 px-2">Evidence & Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for outcome in outcome_results %}
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <td class="body-medium py-3 px-2">{{ outcome.number }}</td>
+                            <td class="body-medium py-3 px-2">{{ outcome.target_outcome }}</td>
+                            <td class="py-3 px-2">
+                                {% if outcome.result == "achieved" %}
+                                <span class="pill-badge pill-achieved">✅ Achieved</span>
+                                {% elif outcome.result == "partial" %}
+                                <span class="pill-badge pill-partial">⚠️ Partial</span>
+                                {% else %}
+                                <span class="pill-badge pill-not-achieved">❌ Not Achieved</span>
+                                {% endif %}
+                            </td>
+                            <td class="body-medium py-3 px-2">{{ outcome.evidence }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if fallback_outcome_assessment %}
+            <div class="mt-4 p-3 rounded-xl" style="background: var(--md-sys-color-surface-container);">
+                <p class="body-medium"><strong>Fallback Outcome:</strong> {{ fallback_outcome_assessment }}</p>
+            </div>
+            {% endif %}
+
+            {% if stage_progression %}
+            <div class="mt-4 p-4 rounded-2xl" style="background: {% if stage_progression.achieved %}var(--md-sys-color-success-container){% else %}var(--md-sys-color-warning-container){% endif %};">
+                <p class="title-medium" style="color: {% if stage_progression.achieved %}var(--md-sys-color-success){% else %}var(--md-sys-color-warning){% endif %};">
+                    Stage Progression: {{ stage_progression.planned }}
+                    {% if stage_progression.achieved %} ✅{% else %} ⚠️ Actual: {{ stage_progression.actual }}{% endif %}
+                </p>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Section 2: Meeting Insights -->
+        <section class="md-card">
+            <h2 class="section-title flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">psychology</span>
+                Meeting Insights
+            </h2>
+
+            <!-- Customer Sentiment -->
+            <div class="mt-4">
+                <p class="title-medium mb-3">Customer Sentiment Changes</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <th class="label-large py-3 px-2">Attendee</th>
+                                <th class="label-large py-3 px-2">Before</th>
+                                <th class="label-large py-3 px-2"></th>
+                                <th class="label-large py-3 px-2">After</th>
+                                <th class="label-large py-3 px-2">Evidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in sentiment_changes %}
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <td class="body-medium py-3 px-2 font-medium" style="color: var(--md-sys-color-on-surface);">{{ s.attendee }}</td>
+                                <td class="py-3 px-2"><span class="pill-badge pill-{{ s.stance_before|lower|replace(' ', '-')|replace('_', '-') }}">{{ s.stance_before }}</span></td>
+                                <td class="py-3 px-2 text-center"><span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">arrow_forward</span></td>
+                                <td class="py-3 px-2"><span class="pill-badge pill-{{ s.stance_after|lower|replace(' ', '-')|replace('_', '-') }}">{{ s.stance_after }}</span></td>
+                                <td class="body-medium py-3 px-2">{{ s.evidence }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="mt-6">
+                <p class="title-medium mb-3">Key Findings</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <th class="label-large py-3 px-2">Finding</th>
+                                <th class="label-large py-3 px-2">Source</th>
+                                <th class="label-large py-3 px-2">Implication</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for f in key_findings %}
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <td class="body-medium py-3 px-2 font-medium" style="color: var(--md-sys-color-on-surface);">{{ f.finding }}</td>
+                                <td class="body-medium py-3 px-2">{{ f.source }}</td>
+                                <td class="body-medium py-3 px-2">{{ f.implication }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Information Gap Check -->
+            {% if info_gap_check %}
+            <div class="mt-6">
+                <p class="title-medium mb-3">Information Gap Check</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <th class="label-large py-3 px-2">Question (from Call Plan)</th>
+                                <th class="label-large py-3 px-2">Status</th>
+                                <th class="label-large py-3 px-2">Answer / Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for q in info_gap_check %}
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <td class="body-medium py-3 px-2">{{ q.question }}</td>
+                                <td class="py-3 px-2">
+                                    <span class="pill-badge pill-{{ q.status }}">
+                                        {% if q.status == "answered" %}✅ Answered{% else %}❌ Unanswered{% endif %}
+                                    </span>
+                                </td>
+                                <td class="body-medium py-3 px-2">{{ q.answer_notes }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Section 3: What Changed — EP Update -->
+        <section class="md-card-elevated">
+            <h2 class="section-title flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">edit_document</span>
+                What Changed — EP Update
+            </h2>
+            <div class="overflow-x-auto mt-4">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <th class="label-large py-3 px-2">EP Section</th>
+                            <th class="label-large py-3 px-2">Change Type</th>
+                            <th class="label-large py-3 px-2">What to Write</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for update in ep_updates %}
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <td class="body-medium py-3 px-2 font-medium" style="color: var(--md-sys-color-on-surface);">{{ update.section }}</td>
+                            <td class="py-3 px-2"><span class="pill-badge pill-{{ update.change_type|lower }}">{{ update.change_type }}</span></td>
+                            <td class="body-medium py-3 px-2">{{ update.what_to_write }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if execution_log_update %}
+            <div class="mt-4 p-4 rounded-2xl" style="background: var(--md-sys-color-surface-container);">
+                <p class="label-large mb-2">Execution Log Update</p>
+                <p class="body-medium leading-relaxed">{{ execution_log_update }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Agent Recommendation -->
+            {% if agent_recommendation %}
+            <div class="mt-4 p-5 rounded-2xl" style="background: var(--md-sys-color-primary-container); border-left: 4px solid var(--md-sys-color-primary);">
+                <p class="title-medium mb-2" style="color: var(--md-sys-color-on-primary-container);">
+                    <span class="material-symbols-outlined align-middle text-base">smart_toy</span>
+                    Agent Recommendation
+                </p>
+                <p class="body-medium leading-relaxed" style="color: var(--md-sys-color-on-primary-container);">{{ agent_recommendation }}</p>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Section 4: Next Steps — Planned vs Actual -->
+        <section class="md-card">
+            <h2 class="section-title flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color: var(--md-sys-color-primary);">compare_arrows</span>
+                Next Steps — Planned vs Actual
+            </h2>
+
+            <!-- Comparison -->
+            <div class="overflow-x-auto mt-4">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <th class="label-large py-3 px-2">#</th>
+                            <th class="label-large py-3 px-2">Planned (from CP)</th>
+                            <th class="label-large py-3 px-2">Actual Agreed</th>
+                            <th class="label-large py-3 px-2">Delta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in range(actual_next_steps|length) %}
+                        <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                            <td class="body-medium py-3 px-2">{{ i + 1 }}</td>
+                            <td class="body-medium py-3 px-2">{% if i < planned_next_steps|length %}{{ planned_next_steps[i].step }} ({{ planned_next_steps[i].owner }}, {{ planned_next_steps[i].timeline }}){% else %}<em>New item</em>{% endif %}</td>
+                            <td class="body-medium py-3 px-2">{{ actual_next_steps[i].step }} ({{ actual_next_steps[i].owner }}, {{ actual_next_steps[i].timeline }})</td>
+                            <td class="body-medium py-3 px-2">{{ actual_next_steps[i].delta }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Action Items -->
+            {% if action_items %}
+            <div class="mt-6">
+                <p class="title-medium mb-3">Action Items</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <th class="label-large py-3 px-2">Priority</th>
+                                <th class="label-large py-3 px-2">Action</th>
+                                <th class="label-large py-3 px-2">Owner</th>
+                                <th class="label-large py-3 px-2">ETA</th>
+                                <th class="label-large py-3 px-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in action_items %}
+                            <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
+                                <td class="py-3 px-2"><span class="pill-badge pill-{{ item.priority|lower }}">{{ item.priority }}</span></td>
+                                <td class="body-medium py-3 px-2">{{ item.action }}</td>
+                                <td class="body-medium py-3 px-2">{{ item.owner }}</td>
+                                <td class="body-medium py-3 px-2">{{ item.eta }}</td>
+                                <td class="body-medium py-3 px-2">{{ item.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Section 5: Customer Recap Email -->
+        {% if recap_email_points %}
+        <section class="md-card-elevated" style="border-left: 4px solid var(--md-sys-color-tertiary);">
+            <h2 class="section-title flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color: var(--md-sys-color-tertiary);">mail</span>
+                Customer Recap Email — Key Points
+            </h2>
+            <p class="body-medium mb-3">Handoff to Writer Skill for final email drafting:</p>
+            <ul class="space-y-2 mt-4">
+                {% for point in recap_email_points %}
+                <li class="body-medium flex items-start gap-2">
+                    <span class="material-symbols-outlined text-base mt-0.5" style="color: var(--md-sys-color-tertiary);">check_circle</span>
+                    {{ point }}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        <!-- Footer -->
+        <footer class="text-center py-4">
+            <p class="body-medium">Last updated: {{ last_updated }}</p>
+        </footer>
+
+    </div>
+</body>
+</html>
