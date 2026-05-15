@@ -51,7 +51,7 @@ The agent structures whatever input it receives into the PMR template. If input 
 ### Rule 1: Close the Loop
 After generating a PMR:
 1. Update the Engagement Plan (incremental updates + timestamps + gap detection)
-2. Provide Agent Recommendation (stage advancement? strategy adjustment?)
+2. Provide Evidence Summary + Referrals to authoritative skills (see §7)
 3. Carry insights to the next Call Plan
 
 ### Rule 2: Auto-Pull from Related Document
@@ -103,12 +103,33 @@ After updating, always ask sales to review the EP changes.
 
 ---
 
-## 7. Agent Recommendation
+## 7. Agent Recommendation & Referrals
 
-After each PMR, provide a brief strategic recommendation (3-5 sentences):
-- Should the opportunity advance to the next stage? Why or why not?
-- Does the current strategy need adjustment?
-- What should the next interaction focus on?
+After each PMR, provide:
+
+**A. Evidence Summary (PMR's own authority):**
+- What factual outcomes were achieved vs planned?
+- What new information was uncovered?
+- What risks or blockers emerged?
+
+**B. Referrals to Authoritative Skills (PMR does NOT make these judgments itself):**
+
+| Signal Detected | Refer To | Phrasing |
+|---|---|---|
+| Stage-relevant evidence (milestone achieved, key person engaged, technical validation passed) | → `opportunity-progression` | "本次会议获得了阶段相关证据，建议运行 OP 评估 stage 是否需要变化。" |
+| New competitive intel surfaced | → `competitive-intelligence` | "发现新的竞争信息，建议刷新 CI 分析。" |
+| Strategy seems misaligned with outcomes | → `engagement-plan` (user decides) | "会议结果与当前策略有偏差，是否需要调整 EP？" |
+| New person introduced (not yet profiled) | → `contact-profiling` | "新人物出现，建议建立 Contact Profile。" |
+
+**⚠️ PMR MUST NOT:**
+- Directly say "opportunity should advance to Stage X" (that's OP's authority)
+- Unilaterally change EP Win Strategy (that's EP's authority)
+- Score MEDDPICC elements (that's OP's authority)
+
+**PMR CAN:**
+- State factual observations ("客户明确表示了预算审批通过")
+- Flag evidence ("这可能意味着 Economic Buyer 已确认")
+- Recommend invoking another skill for judgment
 
 ---
 
