@@ -73,6 +73,19 @@ After generating, always ask sales to review and revise.
 ### Rule 5: Never Hallucinate
 Do not fabricate meeting outcomes, stakeholder sentiments, or action items. If sales input is unclear or incomplete, mark as `[待确认]` and ask for clarification. PMR must reflect what actually happened, not what the agent thinks should have happened.
 
+### Rule 6: Data Provenance Labeling
+Every piece of information in the PMR output must carry a provenance label so sales knows the confidence level.
+
+| Label | Meaning | Sales Action |
+|-------|---------|--------------|
+| `[销售确认]` | 销售直接提供或明确确认的信息 | 可直接使用 |
+| `[AI推断]` | Agent 根据上下文分析推断的信息 | 建议核实 |
+| `[网络搜索]` | 通过网络搜索获取的公开信息 | 注意时效 |
+
+**标注粒度：** 每条独立可判断真伪的断言。
+**显示规则：** 只显式标出 `[销售确认]` 和 `[网络搜索]`，无标注 = `[AI推断]`（默认）。
+**升级机制：** 销售确认后 → 升级为 `[销售确认]`。
+
 ---
 
 ## 5. PMR Template
