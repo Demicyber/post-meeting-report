@@ -55,11 +55,20 @@ PMR 不是独立文档 — 它的核心价值是触发 EP 更新。Agent 完成 
 
 绝对不能只写 PMR 不更新 EP — 那样信息就断了。
 
-## Call Plan 接口
+## Call Plan 接口（路径 A：会议由 Call Plan 触发）
 从 Call Plan 拉取做对比的字段：
 - Section 2 Target Meeting Outcomes → PMR Section 1 逐项评估
 - Section 4 Information to Gather → PMR Section 2 标注哪些搞清楚了、哪些还是 gap
 - Section 7 Next Steps → PMR Section 4 对比 planned vs actual next steps
+
+## Executive Briefing 接口（路径 B：会议由 EB 触发）
+从 Executive Briefing 拉取做对比的字段：
+- Section 3 Success Definition → PMR Section 1 逐项评估
+- Section 3 Per-objective detail (objectives + talking points + asks) → PMR Section 2 评估每个目标的实际达成
+- Section 3 Anticipated Concerns → PMR Section 2 对比预判 vs 实际出现的 concerns
+- Section 3 Proposed Next Steps (3-tier: ideal / acceptable / minimum) → PMR Section 4 对比 planned vs actual next steps
+
+路径判断规则：Agent 检查关联文档类型 — 如果是 Executive Briefing 则走路径 B，否则走路径 A。
 -->
 
 > **Related Document:** [Call Plan / Executive Briefing — link]  

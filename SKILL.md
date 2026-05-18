@@ -55,7 +55,11 @@ After generating a PMR:
 3. Carry insights to the next Call Plan
 
 ### Rule 2: Auto-Pull from Related Document
-The PMR auto-reads Objectives and Success Criteria from the **related document** (Call Plan or Executive Briefing) to generate the Outcome Assessment. Sales provides the results; agent structures the assessment.
+The PMR auto-reads from the **related document** to generate the Outcome Assessment:
+- **Call Plan path:** Target Meeting Outcomes (CP Section 2)
+- **Executive Briefing path:** Objectives + Success Definition (EB Section 3)
+
+Sales provides the results; agent structures the assessment.
 
 ### Rule 3: Proactive Follow-Up
 At the **start of every conversation** about a customer, check for:
@@ -161,7 +165,7 @@ If yes, hand off to **Writer Skill** with context:
 
 | Skill | Relationship | How to Access | If Unavailable |
 |--------|-------------|---------------|----------------|
-| **Call Plan** | PMR auto-pulls CP's Success Criteria into Outcome Assessment. | Load `CP_{Customer}_{Date}_{MilestoneBrief}.html` for this meeting. | Ask sales for meeting objectives directly. |
+| **Call Plan** | PMR auto-pulls CP's Target Meeting Outcomes into Outcome Assessment. | Load `CP_{Customer}_{Date}_{MilestoneBrief}.html` for this meeting. | Ask sales for meeting objectives directly. |
 | **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load `EB_{Customer}_{Date}_{MilestoneBrief}.html` if it exists. | Ask sales for meeting objectives. |
 | **Engagement Plan** | PMR results auto-update EP: Stakeholder stance + Profiling, Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.html`. Agent edits directly. | Flag updates for sales to apply. |
 | **Opportunity Progression** | PMR surfaces evidence and refers to OP for stage validation. PMR does NOT judge stage advancement itself. | Recommend invoking OP when stage-relevant evidence is detected. | Flag evidence for sales to apply in OP manually. |
