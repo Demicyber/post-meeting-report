@@ -128,6 +128,7 @@ After each PMR, provide:
 |---|---|---|
 | Stage-relevant evidence (milestone achieved, key person engaged, technical validation passed) | → `opportunity-progression` | "本次会议获得了阶段相关证据，建议运行 OP 评估 stage 是否需要变化。" |
 | New competitive intel surfaced | → `competitive-intelligence` | "发现新的竞争信息，建议刷新 CI 分析。" |
+| 客户提到外部市场变化、行业事件、政策/监管信号 | → `market-intelligence` | "会议中提到了外部环境变化信号，建议运行 Market Intelligence 生成预警卡，评估对当前策略的影响。" |
 | Strategy seems misaligned with outcomes | → `engagement-plan` (user decides) | "会议结果与当前策略有偏差，是否需要调整 EP？" |
 | New person introduced (not yet profiled) | → `contact-profiling` | "新人物出现，建议建立 Contact Profile。" |
 
