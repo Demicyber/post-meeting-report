@@ -28,18 +28,18 @@ The Post-Meeting Report captures what happened during a customer visit and feeds
 
 **Position in the Closed-Loop Flow:**
 ```
-Call Plan → Visit → PMR → Update EP → Next Call Plan → ...
-Executive Briefing → Visit → PMR → Update EP → Next interaction → ...
+Call Plan → Visit → PMR → Update EP (+ Opp Progression stage review) → Next Call Plan → ...
+Executive Briefing → Visit → PMR → Update EP (+ Opp Progression stage review) → Next interaction → ...
 ```
 
 ---
 
 ## 3. Input
 
-The agent accepts any of the following as input for generating a PMR:
+The agent accepts any of the following:
 - **Verbal debrief** — sales rep describes what happened in conversation
 - **Written notes** — bullet points, free-form text, or structured notes
-- **Meeting transcript** — auto-generated or manual transcript
+- **Meeting transcript** — auto-generated or manual
 - **Audio recording** — if transcription is available
 
 The agent structures whatever input it receives into the PMR template. If input is sparse, generate best-effort and ask targeted follow-up questions (max 3).
@@ -62,19 +62,16 @@ At the **start of every conversation** about a customer, check for:
 - Pending PMRs (visit happened but no PMR yet)
 - Overdue action items from previous PMRs
 
-Escalation sequence for missing PMR:
-1. Gentle: "Ready to capture meeting notes from your [Customer] visit?"
-2. Specific: "I noticed the [Customer] meeting happened on [date] but we don't have a PMR yet."
-3. Impact: "Without a PMR, the next call plan won't reflect what actually happened."
+Escalation: Gentle → Specific → Impact ("Without a PMR, the next call plan won't reflect what actually happened.")
 
 ### Rule 4: Always Review with Sales
 After generating, always ask sales to review and revise.
 
 ### Rule 5: Never Hallucinate
-Do not fabricate meeting outcomes, stakeholder sentiments, or action items. If sales input is unclear or incomplete, mark as `[待确认]` and ask for clarification. PMR must reflect what actually happened, not what the agent thinks should have happened.
+Do not fabricate meeting outcomes, stakeholder sentiments, or action items. PMR must reflect what actually happened. Mark unclear information as `[待确认]`.
 
 ### Rule 6: Data Provenance Labeling
-Every piece of information in the PMR output must carry a provenance label so sales knows the confidence level.
+Every piece of information must carry a provenance label so sales knows the confidence level.
 
 | Label | Meaning | Sales Action |
 |-------|---------|--------------|
@@ -96,21 +93,21 @@ Read [references/post-meeting-report.md](references/post-meeting-report.md) befo
 2. **Meeting Notes** — Customer sentiment per attendee + key findings with source and implication
 3. **What Changed — EP Update** — Incremental changes by dimension (stakeholders, Win Strategy, competitive, risks, stage/timeline) + Agent Recommendation
 4. **Action Items** — Sorted by priority (High first), with owner, ETA, status
-5. **Customer Recap Email Draft** — Handoff to Writer Skill (provide key discussion points, action items, next steps as context)
+5. **Customer Recap Email Draft** — Handoff to Writer Skill
 
 ---
 
 ## 6. EP Update Rules
 
-When updating the Engagement Plan from a PMR, **agent directly edits the EP file** and then asks sales to review:
+When updating the EP from a PMR, **agent directly edits the EP file** and then asks sales to review:
 
-1. **Key Stakeholders** — update Current Stance for any attendee whose sentiment changed; update **Profiling** if new behavioral observations emerged (e.g., communication style, decision patterns, reactions)
-2. **Engagement Roadmap** — mark completed milestone as **Done**, promote next Planned row to **Next ↓**, expand new Next Milestone Detail
-3. **Execution Log** — add a new entry at the top (most recent first) with Planned vs Actual, People Updates, Key Learnings, Plan Adjustment
+1. **Key Stakeholders** — update Current Stance; update Profiling if new behavioral observations emerged
+2. **Engagement Roadmap** — mark completed milestone as **Done**, promote next Planned to **Next ↓**, expand new Next Milestone Detail
+3. **Execution Log** — add new entry at top (most recent first): Planned vs Actual, People Updates, Key Learnings, Plan Adjustment
 4. **Estimate & Uncertainty** — re-forecast if timeline, call count, or risk profile changed
-5. **Incremental updates only** — modify only changed fields; preserve all existing content
+5. **Incremental updates only** — modify only changed fields; preserve existing content
 6. **Timestamp annotations** — add `[Updated: YYYY-MM-DD]` next to every changed field
-7. **Gap detection** — if a topic was discussed but no outcome was captured, flag: "⚠️ [Topic] was discussed but no outcome captured — please confirm what changed."
+7. **Gap detection** — if a topic was discussed but no outcome captured, flag: "⚠️ [Topic] discussed but no outcome captured — please confirm."
 
 After updating, always ask sales to review the EP changes.
 
@@ -148,48 +145,48 @@ After each PMR, provide:
 
 ## 8. Customer Recap Email Handoff
 
-After completing the PMR, ask the user: "Would you like me to draft a customer recap email based on this report?"
+After completing the PMR, ask: "Would you like me to draft a customer recap email based on this report?"
 
-If yes, hand off to the **Writer Skill** with the following context:
+If yes, hand off to **Writer Skill** with context:
 - Key discussion points from Section 2 (Key Findings)
 - Agreed action items from Section 4
 - Proposed next steps
 
-> **⚠️ Writer Skill is not yet available.** Until the Writer Skill repo is created, the PMR agent should draft a simple recap email directly using professional, customer-facing tone. Keep it factual — no internal strategy or competitive intel. When Writer Skill is ready, update this section with the skill path and handoff mechanism.
+> **⚠️ Writer Skill is not yet available.** Until ready, PMR agent drafts a simple recap email directly using professional, customer-facing tone. Keep it factual — no internal strategy or competitive intel.
 
 ---
 
 ## 9. Relationship with Other Skills
 
-| Skill | Relationship | How to Access |
-|--------|-------------|---------------|
-| **Call Plan** | PMR auto-pulls Call Plan's Success Criteria into Outcome Assessment. | Load the Call Plan file for this meeting (naming: `CP_{Customer}_{Date}.md`). |
-| **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load the EB file for this meeting if it exists. |
-| **Engagement Plan** | PMR results auto-update EP: Key Stakeholders stance + Profiling (if new behavioral observations), Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.md` from workspace. Agent edits directly. |
-| **Opportunity Progression** | PMR updates Opp Progression with new info gaps filled, competitive landscape, stage/timeline shifts. | Load opp record if it exists; otherwise flag updates for sales to apply manually. |
-| **Contact Profiling** | If PMR contains new observations about a person (sentiment changes, communication style insights, decision pattern observations), roll updates back to their Contact Profiling file. No people-related updates = no rollback. | Load contact profiling file if it exists; otherwise flag updates for sales. |
-| **CXO Personas** | Sentiment assessment for executive attendees can reference persona expectations. | Load persona file matching attendee's title from `cxo-personas/personas/`. |
-| **Writer Skill** | Customer recap email drafting is delegated to the Writer Skill after PMR is complete. | Hand off context to Writer Skill when user confirms. |
+| Skill | Relationship | How to Access | If Unavailable |
+|--------|-------------|---------------|----------------|
+| **Call Plan** | PMR auto-pulls CP's Success Criteria into Outcome Assessment. | Load `CP_{Customer}_{Date}_{MilestoneBrief}.html` for this meeting. | Ask sales for meeting objectives directly. |
+| **Executive Briefing** | PMR auto-pulls EB's Objectives and Success Definition into Outcome Assessment. | Load `EB_{Customer}_{Date}_{MilestoneBrief}.html` if it exists. | Ask sales for meeting objectives. |
+| **Engagement Plan** | PMR results auto-update EP: Stakeholder stance + Profiling, Roadmap status, Execution Log entry. | Load `EP_{Customer}_{Opportunity}.html`. Agent edits directly. | Flag updates for sales to apply. |
+| **Opportunity Progression** | PMR surfaces evidence and refers to OP for stage validation. PMR does NOT judge stage advancement itself. | Recommend invoking OP when stage-relevant evidence is detected. | Flag evidence for sales to apply in OP manually. |
+| **Contact Profiling** | If PMR contains new behavioral observations, roll updates back to Contact Profile. | Load if exists; otherwise flag for sales. | Flag updates for sales. |
+| **CXO Personas** | Sentiment assessment for exec attendees can reference persona expectations. | Load persona matching attendee's title. | Use general expectations. |
+| **Writer Skill** | Customer recap email delegated to Writer after PMR is complete. | Hand off context when user confirms. | Draft recap directly (see §8). |
 
 ---
 
 ## 10. Document Quality Standards
 
 Before delivering, validate:
-- Outcome assessment auto-pulled from related document with clear results
-- Organized meeting notes with key findings and implications
-- EP update with incremental changes and gap detection
-- Action items with owner/ETA/status, sorted by priority
-- Customer recap email handoff offered to user
+- [ ] Outcome assessment auto-pulled from related document with clear results
+- [ ] Meeting notes with per-attendee sentiment + key findings with implications
+- [ ] EP update with incremental changes and gap detection
+- [ ] Action items with owner/ETA/status, sorted by priority
+- [ ] Customer recap email handoff offered
 
 ---
 
 ## 11. Information Insufficient Fallback
 
-1. **Never block.** Generate best-effort version with available information.
-2. **Never hallucinate.** Do not fill fields with plausible-sounding but unverified content. Mark as `[待确认]` instead.
-3. **Proactively ask sales** for missing information — especially meeting notes and outcomes.
-4. **Mark gaps with actionable context.**
+1. **Never block.** Generate best-effort with available information.
+2. **Never hallucinate.** Mark gaps as `[待确认]` with actionable context.
+3. **Proactively ask sales** for missing meeting notes and outcomes.
+4. **Max 3 questions at once.**
 
 ---
 
@@ -199,9 +196,7 @@ Before delivering, validate:
 - **Action-oriented** — active voice, lead with verbs
 - **Specific and quantified**
 
-### Bilingual Support
-- Chinese input → Chinese output; English input → English output; mixed → match primary language
-- AWS product names always in English
+**Bilingual:** Chinese input → Chinese output; English → English; mixed → match primary. AWS product names always in English.
 
 ---
 
@@ -209,17 +204,17 @@ Before delivering, validate:
 
 ### Default: HTML (Material Design 3)
 
-Every Post-Meeting Report is rendered as a styled HTML file using the Jinja2 template at `templates/post-meeting-report.html.j2`. The agent:
+Every PMR is rendered as a styled HTML file using `templates/post-meeting-report.html.j2`. The agent:
 1. Generates structured data (JSON) from the PMR content
 2. Fills the template via `templates/render_pmr.py`
 3. Outputs the rendered HTML file
 
-Visual style: Google Material Design 3 (Google Sans font, MD3 color tokens, 28px rounded cards, Material Symbols icons, responsive grid, pill badges for result/stance/priority/status).
+Visual style: Google Material Design 3 (Google Sans, MD3 color tokens, 28px rounded cards, Material Symbols icons, responsive grid, pill badges for result/stance/priority/status).
 
 ### On-Demand: PDF / Word
 
-- **PDF** — Generated from HTML via headless Chrome or weasyprint (preserves full styling)
-- **Word (.docx)** — Generated via python-docx (clean business format, not pixel-identical to HTML)
+- **PDF** — Generated from HTML via headless Chrome or weasyprint
+- **Word (.docx)** — Generated via python-docx (clean business format)
 
 Sales requests these explicitly; agent does not auto-generate.
 
@@ -237,10 +232,7 @@ MilestoneBrief = EP Roadmap milestone 描述精简版（2-4个英文单词，keb
 
 ### Storage Architecture
 
-**首次配置：** Agent 首次与销售互动时，询问本地存储路径：
-> "请告诉我你希望文件存放的本地路径（如 ~/Documents/AWS-Sales/）"
-
-销售确认后，Agent 记住该路径，后续所有文档自动写入/更新到该位置。
+**首次配置：** Agent 首次与销售互动时，询问本地存储路径。
 
 **约束：文件存储在销售本地设备，不存放在 Feishu Doc 或其他云文档平台。**
 
@@ -252,7 +244,7 @@ MilestoneBrief = EP Roadmap milestone 描述精简版（2-4个英文单词，keb
 │   ├── {Opportunity}/
 │   │   ├── EP_{Customer}_{Opportunity}.html
 │   │   ├── CP_{Customer}_{Date}_{MilestoneBrief}.html
-│   │   ├── PMR_{Customer}_{Date}_{MilestoneBrief}.html  ← PMR 在这里
+│   │   ├── PMR_{Customer}_{Date}_{MilestoneBrief}.html  ← PMR
 │   │   └── ...
 │   └── _account/              ← 客户级共享资料（跨 Opp）
 │       ├── org-chart.md
@@ -262,12 +254,12 @@ MilestoneBrief = EP Roadmap milestone 描述精简版（2-4个英文单词，keb
 **关键规则：**
 - PMR 存放在对应 Opportunity 文件夹下（跟 EP、CP 同级）
 - 每次会议产生一个新 PMR 文件（不是 living document）
-- Agent 通过对应的 CP/EB 文件定位 Opp 目录，在同目录下生成 PMR
+- Agent 通过对应的 CP/EB 文件定位 Opp 目录
 - PMR 生成后自动更新同目录下的 EP（Execution Log + Roadmap + Stakeholder stance）
 - 多 Opp 定位：1个 active opp → 自动关联；多个 → 问销售确认
 
-详细目录结构规范见 engagement-plan SKILL.md（作为主定义文档）。
+详细目录结构规范见 engagement-plan SKILL.md（主定义文档）。
 
 ---
 
-*Post-Meeting Report Skill | Version: 2.0*
+*Post-Meeting Report Skill | Version: 2.1*
