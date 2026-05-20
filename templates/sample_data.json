@@ -106,7 +106,7 @@
         }
     ],
     "execution_log_update": "Engagement #2 — 2026-03-20 | Attendees: CTO 刘总, IT Director 赵工, CFO 马总 | Planned: CTO 签字确认 POC，CFO 接受分阶段投资 | Actual: CTO 签字 ✅，CFO 部分认可（>$2M 限制）| People: 刘总 Supporter→Sponsor | Key Learning: 采购门槛 $2M，Azure 竞争报价 | Adjustment: Phase 1 scope 需控制 $2M 内",
-    "agent_recommendation": "建议推进 Stage Advancement 至 Business Validation。关键依据：1) CTO 已正式签字确认 POC（Strong Sponsor signal）；2) 技术评审已通过；3) CFO 虽未完全 commit 但未 block。下一步重点：a) 确保 Phase 1 控制在 $2M 以内避免董事会流程；b) POC kickoff 前准备 Azure TCO 对比材料；c) 利用 CTO Q2 汇报时间窗口倒推 POC 完成时间。",
+    "agent_recommendation": "本次会议获得了阶段相关证据：1) CTO 已正式签字确认 POC（Strong Sponsor signal）；2) 技术评审已通过；3) CFO 虽未完全 commit 但未 block。建议运行 opportunity-progression 评估是否满足 Business Validation 进入条件。下一步重点：a) 确保 Phase 1 控制在 $2M 以内避免董事会流程；b) POC kickoff 前准备 Azure TCO 对比材料；c) 利用 CTO Q2 汇报时间窗口倒推 POC 完成时间。",
     "planned_next_steps": [
         {
             "step": "CTO 签字确认 POC 方案 scope",

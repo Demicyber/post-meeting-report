@@ -226,10 +226,12 @@ Stage Progression 评估：
 
 ### Agent Recommendation
 
-> *💡 Based on meeting outcomes, EP changes, and current stage exit criteria:*
-> - *Should the opportunity advance to the next stage? Why/why not?*
+> *💡 Based on meeting outcomes and EP changes:*
+> - *What stage-relevant evidence emerged? (If significant, recommend invoking `opportunity-progression` for stage evaluation.)*
 > - *Does the current strategy need adjustment?*
 > - *What should the next milestone/interaction focus on?*
+>
+> *⚠️ If sales asks whether the opportunity should advance, invoke `opportunity-progression` — do NOT answer directly.*
 
 ---
 
