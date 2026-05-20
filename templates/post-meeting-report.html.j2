@@ -384,12 +384,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i in range(actual_next_steps|length) %}
+                        {% set max_steps = [planned_next_steps|length, actual_next_steps|length] | max %}
+                        {% for i in range(max_steps) %}
                         <tr class="border-b" style="border-color: var(--md-sys-color-outline-variant);">
                             <td class="body-medium py-3 px-2">{{ i + 1 }}</td>
-                            <td class="body-medium py-3 px-2">{% if i < planned_next_steps|length %}{{ planned_next_steps[i].step }} ({{ planned_next_steps[i].owner }}, {{ planned_next_steps[i].timeline }}){% else %}<em>New item</em>{% endif %}</td>
-                            <td class="body-medium py-3 px-2">{{ actual_next_steps[i].step }} ({{ actual_next_steps[i].owner }}, {{ actual_next_steps[i].timeline }})</td>
-                            <td class="body-medium py-3 px-2">{{ actual_next_steps[i].delta }}</td>
+                            <td class="body-medium py-3 px-2">{% if i < planned_next_steps|length %}{{ planned_next_steps[i].step }} ({{ planned_next_steps[i].owner }}, {{ planned_next_steps[i].timeline }}){% else %}<em style="color: var(--md-sys-color-outline);">— No planned item —</em>{% endif %}</td>
+                            <td class="body-medium py-3 px-2">{% if i < actual_next_steps|length %}{{ actual_next_steps[i].step }} ({{ actual_next_steps[i].owner }}, {{ actual_next_steps[i].timeline }}){% else %}<em style="color: var(--md-sys-color-outline);">— Dropped —</em>{% endif %}</td>
+                            <td class="body-medium py-3 px-2">{% if i < actual_next_steps|length %}{{ actual_next_steps[i].delta }}{% elif i < planned_next_steps|length %}Not pursued{% endif %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

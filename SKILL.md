@@ -1,13 +1,19 @@
 ---
 name: post-meeting-report
 description: >
-  Generates Post-Meeting Report documents after AWS customer visits.
-  Captures outcomes, meeting notes, EP updates, and action items.
+  Generates Post-Meeting Report (PMR) documents after customer visits or calls.
+  Captures outcomes vs plan, meeting insights, EP updates, and action items.
   Closes the loop by auto-syncing findings back to the Engagement Plan.
   Customer recap email is handed off to the Writer Skill.
-  Works with Call Plan, Engagement Plan, Executive Briefing, Opportunity Progression, Contact Profiling, CXO Personas, and Writer skills.
-  Triggers on: "post-meeting report", "meeting notes", "post-meeting", "follow-up",
-  "meeting debrief", "visit report", "拜访复盘", "会议纪要", "会后总结".
+  Works with Call Plan, Engagement Plan, Executive Briefing, Opportunity Progression,
+  Contact Profiling, CXO Personas, and Writer skills.
+  Use this skill whenever the user mentions anything about a completed meeting, visit,
+  or call — including "post-meeting report", "meeting notes", "follow-up after meeting",
+  "meeting debrief", "visit report", "what happened in the meeting", "just finished meeting",
+  "debrief time", "meeting recap", "capture meeting outcomes", "update EP after meeting",
+  "拜访复盘", "会议纪要", "会后总结", "刚见完客户", "开完会了", "今天拜访了".
+  Also trigger when user provides meeting transcripts, audio recordings, or post-visit
+  notes that need structuring into a report, even if they don't explicitly say "PMR".
 ---
 
 # Post-Meeting Report Skill
@@ -78,14 +84,14 @@ Do not fabricate meeting outcomes, stakeholder sentiments, or action items. PMR 
 Every piece of information must carry a provenance label so sales knows the confidence level.
 
 | Label | Meaning | Sales Action |
-|-------|---------|--------------|
-| `[销售确认]` | 销售直接提供或明确确认的信息 | 可直接使用 |
-| `[AI推断]` | Agent 根据上下文分析推断的信息 | 建议核实 |
-| `[网络搜索]` | 通过网络搜索获取的公开信息 | 注意时效 |
+|-------|---------|--------------| 
+| `[Sales Confirmed]` | Information directly provided or explicitly confirmed by sales | Use directly |
+| `[AI Inferred]` | Information inferred by the agent based on context analysis | Suggest verification |
+| `[Web Search]` | Publicly available information obtained via web search | Check timeliness |
 
-**标注粒度：** 每条独立可判断真伪的断言。
-**显示规则：** 只显式标出 `[销售确认]` 和 `[网络搜索]`，无标注 = `[AI推断]`（默认）。
-**升级机制：** 销售确认后 → 升级为 `[销售确认]`。
+**Labeling granularity:** Each independently verifiable assertion.
+**Display rule:** Only explicitly label `[Sales Confirmed]` and `[Web Search]`; unlabeled = `[AI Inferred]` (default).
+**Upgrade mechanism:** After sales confirms → upgrade to `[Sales Confirmed]`.
 
 ---
 
@@ -233,15 +239,15 @@ Sales requests these explicitly; agent does not auto-generate.
 
 Example: `PMR_MinghuaHeavy_2026-05-15_Discovery-CTO.html`
 
-MilestoneBrief = EP Roadmap milestone 描述精简版（2-4个英文单词，kebab-case）。PMR 和对应 CP/EB 使用相同的 `{Date}_{MilestoneBrief}` 后缀，方便配对（会前计划 ↔ 会后报告）。
+MilestoneBrief = Condensed EP Roadmap milestone description (2-4 English words, kebab-case). PMR and its corresponding CP/EB share the same `{Date}_{MilestoneBrief}` suffix for easy pairing (pre-meeting plan ↔ post-meeting report).
 
 ### Storage Architecture
 
-**首次配置：** Agent 首次与销售互动时，询问本地存储路径。
+**First-time setup:** On first interaction with sales, ask for the local storage path.
 
-**约束：文件存储在销售本地设备，不存放在 Feishu Doc 或其他云文档平台。**
+**Constraint: Files are stored on the sales rep's local device, NOT in Feishu Docs or other cloud document platforms.**
 
-**目录结构（以 Customer → Opportunity 为核心）：**
+**Directory structure (Customer → Opportunity as the core):**
 
 ```
 {sales_local_path}/
@@ -256,14 +262,14 @@ MilestoneBrief = EP Roadmap milestone 描述精简版（2-4个英文单词，keb
 │       └── contacts/
 ```
 
-**关键规则：**
-- PMR 存放在对应 Opportunity 文件夹下（跟 EP、CP 同级）
-- 每次会议产生一个新 PMR 文件（不是 living document）
-- Agent 通过对应的 CP/EB 文件定位 Opp 目录
-- PMR 生成后自动更新同目录下的 EP（Execution Log + Roadmap + Stakeholder stance）
-- 多 Opp 定位：1个 active opp → 自动关联；多个 → 问销售确认
+**Key rules:**
+- PMR is stored in the corresponding Opportunity folder (same level as EP and CP)
+- Each meeting produces a new PMR file (not a living document)
+- Agent locates the Opp directory via the associated CP/EB file
+- After generating, PMR auto-updates the EP in the same directory (Execution Log + Roadmap + Stakeholder stance)
+- Multi-Opp resolution: 1 active opp → auto-associate; multiple → ask sales to confirm
 
-详细目录结构规范见 engagement-plan SKILL.md（主定义文档）。
+See engagement-plan SKILL.md for the full directory structure specification (authoritative source).
 
 ---
 
