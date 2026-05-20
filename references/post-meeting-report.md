@@ -1,5 +1,14 @@
 # Post-Meeting Report
 
+## Table of Contents
+- [Agent Guidance — Data Provenance](#agent-guidance--data-provenance) (in comment)
+- [Global Agent Logic](#global-agent-logic) (in comment)
+- [1. Outcome Assessment](#1-outcome-assessment)
+- [2. Meeting Insights](#2-meeting-insights)
+- [3. What Changed — EP Update](#3-what-changed--ep-update)
+- [4. Next Steps — Planned vs Actual](#4-next-steps--planned-vs-actual)
+- [5. Customer Recap Email](#5-customer-recap-email-handoff)
+
 > **Purpose:** Captures meeting outcomes, extracts insights, and feeds learnings back to the Engagement Plan. AI agent generates the PMR based on sales debrief and Call Plan context.
 >
 > ✅ *After generating, agent always asks sales to review and confirm before writing back to EP.*
